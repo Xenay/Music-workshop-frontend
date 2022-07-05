@@ -32,7 +32,7 @@
             v-model="register.password"
           />
            <input
-           @click="putAdmin"
+           @click="putAdmin()"
             type="checkbox"
             id="checkbox"
             class="form-control mb-5"
@@ -64,19 +64,20 @@ export default {
         name: "",
         email: "",
         password: "",
-        isAdmin: false
+        isAdmin: false,
+        points:50
       }
     };
   },
   methods: {
     async putAdmin() {
-      this.isAdmin = !this.isAdmin;
-      console.log(this.isAdmin);
+      this.register.isAdmin = !this.register.isAdmin;
+      console.log(this.register.isAdmin);
     },
     async registerUser() {
       try {
         let response = await this.$http.post("/user/register", this.register);
-        console.log(this.register);
+      
         let token = response.data.token;
         if (token) {
           localStorage.setItem("jwt", token);

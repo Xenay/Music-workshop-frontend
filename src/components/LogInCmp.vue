@@ -39,6 +39,7 @@
   </div>
 </template>
 <script>
+/* eslint-disable */
 import PostService from '../PostService';
 import store from '../store';
 
@@ -57,17 +58,22 @@ export default {
         let response = await this.$http.post("/user/login", this.login);
         let token = response.data.token;
         localStorage.setItem("jwt", token);
-        store.login = response.data;
+        
         
         if (token) {
           this.$swal("Success", "Login Successful", "success");
           this.$router.push("/");
+          PostService.authent();
+          localStorage.setItem('isLoggedIn','true');
+          
+
         }
       } catch (err) {
         this.$swal("Error", "Something Went Wrong", "error");
         console.log(err.response);
       }
-      PostService.authent();
+      
+      
     },
     
   }

@@ -1,5 +1,6 @@
 /* eslint-disable */
 import axios from "axios";
+
 import store from "../src/store";
 //import { resolve, reject } from "core-js/fn/promise";
 
@@ -31,14 +32,38 @@ class PostService {
     });
   }
 
-  async authent() {
-    let res = await axios.get("http://localhost:5000/user/me", {
-      headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
-    });
-    let data = res.data;
+  static async authent() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let res = await axios.get("http://localhost:5000/user/me", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+        });
+        let data = res.data;
 
-    console.log(login);
-    store.login = data;
+        store.login = data;
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+  static getByUrl(id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/posts/get/" + id
+        );
+
+        const data = await res.data;
+        resolve(
+          data.map((post) => ({
+            ...post,
+            createdAt: new Date(post.createdAt),
+          }))
+        );
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
   //delete
@@ -62,6 +87,23 @@ class PostService {
         reject(err);
       }
     });
+  }
+
+
+  //point manipulation
+  static updatePoints(id) {
+    const res = axios.patch("http://localhost:5000/user/me/" + id, body);
+
+    const data = res.data;
+    resolve(
+      data.map((post) => ({
+        ...post,
+        createdAt: new Date(post.createdAt),
+      }))
+    );
+  }
+  catch(err) {
+    reject(err);
   }
 }
 

@@ -4,7 +4,7 @@
   
     
    <h1 class="textfont"> Latest posts </h1>
-   <div class="create-post">
+   <div class="create-post" v-if="isAdmin === true">
      <label for="create-post">Upload video</label>
      <input type="text" id="create-post" v-model="text">
      <button v-on:click= "createPost">Post</button>
@@ -17,7 +17,7 @@
     v-for="(post,index) in posts"
     v-bind:item = "post"
     v-bind:index = "index"
-    v-bind:key = "post._id">
+    v-bind:key = "post.text">
    <br>
     
   <div class="textfont">
@@ -34,8 +34,10 @@
   
     <br>
     <div class="textfont">
-    <router-link :to = "{path: '/challenges', query: {url: post.text}}"> Results </router-link>
+    <router-link @click.native="putsore(post._id)" :to = "{path: '/challenges', query: {url: post.text}}">  Results </router-link>
+    
     </div>
+    
     </div>
  </div>
  </div>
@@ -47,6 +49,9 @@
 // @ is an alias to /src
 import PostService from '../PostService';
 import {LazyYoutube} from "vue-lazytube";
+import store from '../store';
+
+
 
 var query = new URLSearchParams();
 
@@ -55,6 +60,7 @@ query.append("url", url);
 // eslint-disable-next-line
 url += query.toString();
 
+
 export default {
   name: 'HomeView',
   data() {
@@ -62,14 +68,20 @@ export default {
       posts: [],
       error: '',
       text: '',
-      image: "@/assets/catto.png"
+      image: "@/assets/catto.png",
+      isAdmin: false
+    
+      
       
     }
   },
   async created() {
     try {
       this.posts = await PostService.getPosts();
-      console.log(url);
+      console.log(store.login.isAdmin);
+      this.isAdmin = store.login.isAdmin;
+      
+      
       
     } catch (err) {
       this.error = err.message;
@@ -79,12 +91,22 @@ export default {
     async createPost() {
       await PostService.insertPost(this.text);
       this.posts = await PostService.getPosts();
-    }
+    },
+    async putsore(id) {
+      store.post = id;
+      console.log(store);
+  
   },
+  
+    
+  
+  },
+
   components: {
    LazyYoutube
   }
 }
+
 </script>
 <style>
   .cardimage {
