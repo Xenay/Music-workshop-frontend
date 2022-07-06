@@ -75,10 +75,11 @@ export default {
     };
   },
   async created() {
+    PostService.authent();
   await axios.get("http://localhost:5000/api/posts/find/"+store.post)
       .then((response) => {
         var parsedobj = JSON.parse(JSON.stringify(response.data))
-         console.log(parsedobj[0].childern[1]);
+        
         this.childrenpost=parsedobj[0].childern;
         console.log(this.childrenpost);
       });
@@ -86,6 +87,7 @@ export default {
   mounted() {
     this.getPOst();
     //this.getChildren();
+
     
       console.log(store.login.isAdmin);
       this.isAdmin = store.login.isAdmin;

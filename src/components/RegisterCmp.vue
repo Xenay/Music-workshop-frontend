@@ -65,7 +65,7 @@ export default {
         email: "",
         password: "",
         isAdmin: false,
-        points:50
+        points: 50
       }
     };
   },

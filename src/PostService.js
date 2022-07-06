@@ -41,6 +41,7 @@ class PostService {
         let data = res.data;
 
         store.login = data;
+        console.log(data);
       } catch (err) {
         reject(err);
       }
@@ -89,7 +90,6 @@ class PostService {
     });
   }
 
-
   //point manipulation
   static updatePoints(id) {
     const res = axios.patch("http://localhost:5000/user/me/" + id, body);
@@ -104,6 +104,18 @@ class PostService {
   }
   catch(err) {
     reject(err);
+  }
+
+  //point get
+  static getpoints() {
+    return new Promise(async (resolve, reject) => {
+      let res = await axios.get(
+        "http://localhost:5000/api/posts/findpoint/" + store.login.name
+      );
+
+      let data = res.data.points;
+      store.login.points = data;
+    });
   }
 }
 

@@ -102,6 +102,7 @@ methods: {
 mounted() {
 //this.check();
 PostService.authent();
+PostService.getpoints();
 this.checkIfLoggedIn();
 
   

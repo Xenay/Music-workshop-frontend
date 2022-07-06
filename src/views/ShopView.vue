@@ -2,7 +2,7 @@
 <div class="a">
 
   <div class="center">
-      <h2> points: {{points}} </h2>
+      <h2> points: {{this.points}} </h2>
   </div>   
 
 <div class="row">
@@ -72,8 +72,8 @@ methods: {
 
  async shopSystem(price) {
   console.log(store.login.points);
-  console.log(price);
-    if(price<store.login.points) {
+  console.log(this.points);
+   if(price<this.points) {
     //swal start
 Swal.fire({
   title: 'Login Form',
@@ -126,9 +126,9 @@ Swal.fire({
 
         
  });
- store.login.points -= price;
+ this.points -= price;
    }
-    else this.$swal('Not enough money', ':(', 'OK');;
+   else this.$swal('Not enough money', ':(', 'OK');;
  
 
 
@@ -147,7 +147,9 @@ async getstore() {
 //this.check();
   PostService.authent();
   this.isLoggedIn = localStorage.getItem("isLoggedIn");
+  PostService.getpoints();
   this.getstore();
+  
   }
 }
 
