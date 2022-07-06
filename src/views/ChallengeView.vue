@@ -57,7 +57,7 @@ import store from '../store';
 //let name = params.get("url");
 import axios from 'axios';
 import PostService from  '../PostService';
-let urlser = "http://localhost:5000/api/posts/";
+let urlser = "https://musicworkshop.herokuapp.com/api/posts/";
 
 export default {
   name: 'ChallengeView',
@@ -76,7 +76,7 @@ export default {
   },
   async created() {
     PostService.authent();
-  await axios.get("http://localhost:5000/api/posts/find/"+store.post)
+  await axios.get("https://musicworkshop.herokuapp.com/api/posts/find/"+store.post)
       .then((response) => {
         var parsedobj = JSON.parse(JSON.stringify(response.data))
         
@@ -95,7 +95,7 @@ export default {
   methods: {
     async getChildren() {
       try {
-      const response = await axios.get("http://localhost:5000/api/posts/find/"+store.post)
+      const response = await axios.get("https://musicworkshop.herokuapp.com/api/posts/find/"+store.post)
       console.log(response);
       
       this.childrenpost=response;
@@ -191,7 +191,7 @@ export default {
       };
       
       console.log(point);
-      await axios.put("http://localhost:5000/api/posts/user/", body)
+      await axios.put("https://musicworkshop.herokuapp.com/posts/user/", body)
       .catch(function (error) {
       //weld
       

@@ -14,7 +14,7 @@ Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false;
 const base = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://musicworkshop.herokuapp.com/",
 });
 Vue.prototype.$http = base;
 Vue.config.productionTip = false;

@@ -69,7 +69,7 @@ data() {
 methods: {
 
   async authent() {
-  let res = await axios.get('http://localhost:5000/user/me',{headers: {"Authorization" :  `Bearer ${localStorage.getItem("jwt")}`}});
+  let res = await axios.get('https://musicworkshop.herokuapp.com//user/me',{headers: {"Authorization" :  `Bearer ${localStorage.getItem("jwt")}`}});
   
   let data = res.data;
   this.login = data;

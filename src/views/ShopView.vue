@@ -109,7 +109,7 @@ Swal.fire({
           address: this.address
       };
       console.log(body);
-      axios.put("http://localhost:5000/api/posts/user/buy", body)
+      axios.put("https://musicworkshop.herokuapp.com/api/posts/user/buy", body)
       .catch(function (error) {
       //weld
       

@@ -4,7 +4,7 @@ import axios from "axios";
 import store from "../src/store";
 //import { resolve, reject } from "core-js/fn/promise";
 
-const url = "http://localhost:5000/api/posts/";
+const url = "https://musicworkshop.herokuapp.com/api/posts/";
 
 class PostService {
   //get
@@ -35,9 +35,12 @@ class PostService {
   static async authent() {
     return new Promise(async (resolve, reject) => {
       try {
-        let res = await axios.get("http://localhost:5000/user/me", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
-        });
+        let res = await axios.get(
+          "https://musicworkshop.herokuapp.com/user/me",
+          {
+            headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+          }
+        );
         let data = res.data;
 
         store.login = data;
@@ -51,7 +54,7 @@ class PostService {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/posts/get/" + id
+          "https://musicworkshop.herokuapp.com/api/posts/get/" + id
         );
 
         const data = await res.data;
@@ -92,7 +95,10 @@ class PostService {
 
   //point manipulation
   static updatePoints(id) {
-    const res = axios.patch("http://localhost:5000/user/me/" + id, body);
+    const res = axios.patch(
+      "https://musicworkshop.herokuapp.com/user/me/" + id,
+      body
+    );
 
     const data = res.data;
     resolve(
@@ -110,7 +116,8 @@ class PostService {
   static getpoints() {
     return new Promise(async (resolve, reject) => {
       let res = await axios.get(
-        "http://localhost:5000/api/posts/findpoint/" + store.login.name
+        "https://musicworkshop.herokuapp.com/api/posts/findpoint/" +
+          store.login.name
       );
 
       let data = res.data.points;
